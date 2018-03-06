@@ -1,0 +1,12 @@
+.btn-group .btn {
+  height: $btn-size;
+  width: $btn-size;
+  background-color: transparent;
+  color: $btn-color;
+}
+
+.btn-group {
+  position: fixed;
+    top: 40%;
+    left: 40%;
+}
