@@ -16,15 +16,15 @@
 
   </button>
   <button mat-raised-button class="btn"
-    (click)="stop.emit(null)"
+    (click)="like()"
   >
-    <i class="fa fa-stop" aria-hidden="true">
+    <i class="fa fa-thumbs-up" aria-hidden="true">
     </i>
   </button>
   <button mat-raised-button class="btn"
-    (click)="next.emit(null)"
+    (click)="skipSong()"
   >
-    <i class="fa fa-fast-forward" aria-hidden="true">
+    <i class="fa fa-arrow-circle-right" aria-hidden="true">
     </i>
   </button>
 </div>
