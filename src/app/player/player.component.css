@@ -7,6 +7,19 @@
 
 .btn-group {
   position: fixed;
-    top: 40%;
-    left: 40%;
+  top: 40%;
+  left: 40%;
+}
+
+.md-select-value.md-select-placeholder {
+  color: red !important;
+}
+
+.material-icons {
+  font-size: 30px !important;
+  color: #F9EE05;
+}
+
+.moodicons {
+  float: right;
 }

@@ -17,7 +17,7 @@
     "@angular/common": "^5.2.0",
     "@angular/compiler": "^5.2.0",
     "@angular/core": "^5.2.0",
-    "@angular/forms": "^5.2.0",
+    "@angular/forms": "^5.2.9",
     "@angular/http": "^5.2.0",
     "@angular/material": "github:angular/material2-builds",
     "@angular/platform-browser": "^5.2.0",

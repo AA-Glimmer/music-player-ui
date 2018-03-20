@@ -1,0 +1,31 @@
+.app-content{
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-left: 30%;
+  margin-right: 30%;
+  padding: 50px;
+
+}
+
+.app-input-icon {
+  font-size: 16px;
+}
+
+
+form {
+  width: 90%;
+  margin: 3em 1em;
+}
+
+mat-input-container {
+  width: 100%;
+}
+
+.group {
+  position: relative;
+  margin-bottom: 45px;
+}
+
+#err {
+  color : red;
+}
