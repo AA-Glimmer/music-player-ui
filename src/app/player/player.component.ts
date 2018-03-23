@@ -105,7 +105,6 @@ export class PlayerComponent implements OnInit {
          },
         err => {
           // Error
-          //reject(err);
           alert(err.status);
         }
        );
@@ -139,7 +138,6 @@ export class PlayerComponent implements OnInit {
            },
           err => {
             // Error
-            //reject(err);
             alert(err.status);
           }
          );

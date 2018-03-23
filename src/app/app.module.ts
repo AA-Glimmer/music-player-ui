@@ -5,18 +5,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatMenuModule, MatToolbarModule, MatIconModule,
-  MatCardModule, MatCheckboxModule, MatSelectModule, MatInputModule, MatTabsModule} from '@angular/material';
+import {MatButtonModule, MatMenuModule, MatToolbarModule, MatIconModule, MatListModule,
+  MatCardModule, MatCheckboxModule, MatSelectModule, MatInputModule, MatTabsModule, } from '@angular/material';
+
+import { NgxDnDModule } from '@swimlane/ngx-dnd';
 
 import { AppComponent } from './app.component';
 import { PlayerComponent } from './player/player.component';
 import { LoginComponent } from './login/login.component';
 import {SessionService} from './services/session.service';
+import { GenreSelectionComponent } from './genre-selection/genre-selection.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'homepage', component: PlayerComponent },
+  { path: 'genreselection', component: GenreSelectionComponent },
   // { path: '**', component: NotFoundComponent }
 ];
 
@@ -25,6 +29,7 @@ const appRoutes: Routes = [
     AppComponent,
     PlayerComponent,
     LoginComponent,
+    GenreSelectionComponent,
   ],
   imports: [
       RouterModule.forRoot(
@@ -35,8 +40,9 @@ const appRoutes: Routes = [
       BrowserAnimationsModule,
       MatButtonModule, MatMenuModule, MatToolbarModule, MatIconModule,
       MatCardModule, MatCheckboxModule, MatSelectModule,
-      MatInputModule, MatTabsModule,
+      MatInputModule, MatTabsModule, MatListModule,
       HttpClientModule, FormsModule, RouterModule,
+      NgxDnDModule,
    ],
   providers: [SessionService],
   bootstrap : [AppComponent]
