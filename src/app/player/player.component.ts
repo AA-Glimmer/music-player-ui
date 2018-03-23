@@ -5,11 +5,12 @@ import { Howl } from 'howler';
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
-  styleUrls: ['./player.component.css']
+  styleUrls: ['./player.component.css'],
 })
 export class PlayerComponent implements OnInit {
 
-  baseUrl:string = 'http://demo2919474.mockable.io/';
+  baseUrl = 'http://demo2919474.mockable.io/';
+
   constructor(private http: HttpClient) {
   }
 
@@ -24,29 +25,29 @@ export class PlayerComponent implements OnInit {
     // Serve will provide the song name and then play the song directly
     // from that location
     let promise = new Promise((resolve, reject) => {
-      this.http.get(this.baseUrl+'/song')
+      this.http.get(this.baseUrl + '/song')
       .toPromise()
       .then (
         data => {
-          this.songId = data.songId;
-          this.songURL = data.url;
+          this.songId = data['songId'];
+          this.songURL = data['url'];
           this.sound = new Howl({src: this.songURL});
           resolve();
          },
          err => { // Error
          //reject(err);
-         alert(err.status)
+         alert(err.status);
          }
        );
-      }
+     });
   }
 
 
   isPlaying = false;
   //sound = new Howl({src: ['../../assets/songs/temp.mp3']})
 
-  togglePlay(event) {
-    if(!this.isPlaying) {
+   togglePlay(event) {
+    if ( !this.isPlaying) {
       // If earlier song wasn't isPlaying
       //this.isPlaying = true;
       //this.soundId = this.sound.play()
@@ -54,20 +55,21 @@ export class PlayerComponent implements OnInit {
 
     } else {
       this.isPlaying = false;
-      this.sound.pause()
-      console.log()
+      this.sound.pause();
+      console.log();
     }
   }
 
 
-  skipSong(event) {
-    console.log('Skipping Song:'+this.songURL);
+   skipSong(event) {
+    console.log('Skipping Song:' + this.songURL);
+
     let promise = new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl+'/skip', {
+      this.http.post(this.baseUrl + '/skip', {
         songId: this.songId,
         isLike: this.isLike,
         timePlayed : this.sound.seek(this.soundId),
-        timestamp: new Date().getTime() / 1000;
+        timestamp: new Date().getTime() / 1000,
       })
       .toPromise()
       .then (
@@ -76,10 +78,10 @@ export class PlayerComponent implements OnInit {
           this.sound.stop();
 
           // set the next song
-          this.songId = data.songId;
-          this.songURL = data.url;
-          this.mood = data.mood;
-          console.log("Next Song:"+this.songURL);
+          this.songId = data['songId'];
+          this.songURL = data['url'];
+          //this.mood = data['mood'];
+          console.log('Next Song:' + this.songURL);
           this.sound = new Howl({src: this.songURL});
 
           // play the next song
@@ -89,19 +91,19 @@ export class PlayerComponent implements OnInit {
         err => {
           // Error
           //reject(err);
-          alert(err.status)l
+          alert(err.status);
         }
        );
-    }
+    });
   }
 
-  private playNextSong() {
+   playNextSong() {
       let promise = new Promise((resolve, reject) => {
         this.http.post(this.baseUrl+'/song', {
           songId: this.songId,
           isLike: this.isLike,
           timePlayed : this.sound.seek(this.soundId),
-          timestamp: new Date().getTime() / 1000;
+          timestamp: new Date().getTime() / 1000,
         })
         .toPromise()
         .then (
@@ -110,10 +112,10 @@ export class PlayerComponent implements OnInit {
             this.sound.stop();
 
             // set the next song
-            this.songId = data.songId;
-            this.songURL = data.url;
-            this.mood = mood;
-            console.log("Next Song:"+this.songURL);
+            this.songId = data['songId'];
+            this.songURL = data['url'];
+            //this.mood = mood;
+            console.log('Next Song:' + this.songURL);
             this.sound = new Howl({src: this.songURL});
 
             // play the next song
@@ -123,30 +125,23 @@ export class PlayerComponent implements OnInit {
           err => {
             // Error
             //reject(err);
-            alert(err.status)
+            alert(err.status);
           }
          );
-      }
-
-
+      });
   }
 
 
   // Helper method that plays the song
-  private playSong() {
+   playSong() {
     this.isPlaying = true;
-    this.soundId = this.sound.play()
-    console.log("In Play Function")
+    this.soundId = this.sound.play();
+    console.log('In Play Function');
 
     // Fires when the sound finishes playing.
-    this.sound.on('end', function(){
+    this.sound.on('end', function() {
       console.log('Finished playing song! Playing next song.');
-      this.playNextSong()
+      this.playNextSong();
     });
-
-
   }
-
-
-
 }

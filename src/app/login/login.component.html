@@ -1,42 +1,48 @@
 <div class="app-content">
   <mat-card>
-  <mat-tab-group>
-    <mat-tab label="Login">
-      <form role="form" (submit)="login()">
-        <mat-input-container>
-          <input matInput type="text" [(ngModel)]="username" >
-          <mat-placeholder>
-            <i class="material-icons app-input-icon" id="username" name="username" >face</i>Username
-          </mat-placeholder>
-        </mat-input-container><br><br>
-        <mat-input-container>
-          <input matInput type="password" id="password" name="password" >
-          <mat-placeholder >
-            <i class="material-icons app-input-icon">lock_open</i>Password
-          </mat-placeholder>
-        </mat-input-container><br><br>
-        <button mat-raised-button color="primary" type="submit" name="action">LOGIN</button><br><br>
-      <span id="err"><small>{{errorMsg}}</small></span>
-    </form >
-  </mat-tab>
-<mat-tab label="Signup">
-  <form role="form" (submit)="signup()">
-    <mat-input-container>
-      <input matInput type="text">
-      <mat-placeholder>
-        <i class="material-icons app-input-icon" id="username" name="username" >face</i>Username
-      </mat-placeholder>
-    </mat-input-container><br><br>
-    <mat-input-container>
-      <input matInput type="password" id="password" name="password" >
-      <mat-placeholder >
-        <i class="material-icons app-input-icon">lock_open</i>Password
-      </mat-placeholder>
-    </mat-input-container><br><br>
-    <button mat-raised-button color="primary" type="submit" name="action">SIGNUP</button><br><br>
-  <span id="err"><small>{{errorMsg}}</small></span>
-</form >
-</mat-tab>
-</mat-tab-group>
-</mat-card>
+    <mat-tab-group>
+      <mat-tab label="Login">
+        <form role="form" (submit)="login()">
+          <mat-input-container>
+            <input matInput type="text" name="username" [(ngModel)]="username">
+            <mat-placeholder>
+              <i class="material-icons app-input-icon" name="username">face</i>Username
+            </mat-placeholder>
+          </mat-input-container>
+          <br><br>
+          <mat-input-container>
+            <input matInput type="password" name="password" [(ngModel)]="password">
+            <mat-placeholder>
+              <i class="material-icons app-input-icon">lock_open</i>Password
+            </mat-placeholder>
+          </mat-input-container>
+          <br><br>
+          <button mat-raised-button color="primary" type="submit" name="action">LOGIN</button>
+          <br><br>
+          <span id="login-err"><small>{{errorMsg}}</small></span>
+        </form>
+      </mat-tab>
+      <mat-tab label="Signup">
+        <form role="form" (submit)="signup()">
+          <mat-input-container>
+            <input matInput type="text" name="username" [(ngModel)]="username">
+            <mat-placeholder>
+              <i class="material-icons app-input-icon" name="username">face</i>Username
+            </mat-placeholder>
+          </mat-input-container>
+          <br><br>
+          <mat-input-container>
+            <input matInput type="password" name="password" [(ngModel)]="password">
+            <mat-placeholder>
+              <i class="material-icons app-input-icon">lock_open</i>Password
+            </mat-placeholder>
+          </mat-input-container>
+          <br><br>
+          <button mat-raised-button color="primary" type="submit" name="action">SIGNUP</button>
+          <br><br>
+          <span id="signup-err"><small>{{errorMsg}}</small></span>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
 </div>
