@@ -11,10 +11,13 @@ import {MatButtonModule, MatMenuModule, MatToolbarModule, MatIconModule,
 import { AppComponent } from './app.component';
 import { PlayerComponent } from './player/player.component';
 import { LoginComponent } from './login/login.component';
+import {SessionService} from './services/session.service';
 
 const appRoutes: Routes = [
+  { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'homepage', component: PlayerComponent }
+  { path: 'homepage', component: PlayerComponent },
+  // { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
@@ -26,7 +29,7 @@ const appRoutes: Routes = [
   imports: [
       RouterModule.forRoot(
         appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      // { enableTracing: true } // <-- debugging purposes only
       ),
       BrowserModule,
       BrowserAnimationsModule,
@@ -35,7 +38,7 @@ const appRoutes: Routes = [
       MatInputModule, MatTabsModule,
       HttpClientModule, FormsModule, RouterModule,
    ],
-  providers: [],
+  providers: [SessionService],
   bootstrap : [AppComponent]
 })
 

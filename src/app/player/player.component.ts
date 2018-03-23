@@ -1,6 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Howl } from 'howler';
+import {Router} from '@angular/router';
+import {SessionService} from '../services/session.service';
 
 @Component({
   selector: 'app-player',
@@ -11,7 +13,7 @@ export class PlayerComponent implements OnInit {
 
   baseUrl = 'http://demo2919474.mockable.io/';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router, private sessionService: SessionService) {
   }
 
   sound = null;
@@ -19,8 +21,21 @@ export class PlayerComponent implements OnInit {
   songId = null;
   songURL = null;
   isLike = false;
+  username = null;
 
   ngOnInit() {
+
+    const sesssion = this.sessionService.getSession();
+    // Check if user is in session
+    if (sesssion === undefined || !('user' in sesssion)) {
+      // if not then redirect to login page
+      this.router.navigate(['./login']);
+    } else {
+      this.username = sesssion['user']['username'];
+    }
+
+
+
     // on page refresh request for a song from the server.
     // Serve will provide the song name and then play the song directly
     // from that location
