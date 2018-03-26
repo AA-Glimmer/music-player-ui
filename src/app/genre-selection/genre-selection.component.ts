@@ -9,7 +9,14 @@ export class GenreSelectionComponent implements OnInit {
 
   constructor() { }
 
+  orderableList = ['Jazz', 'Hip Hop', 'Rock'];
+
   ngOnInit() {
+
   }
 
+
+  confirmGenreOrdering() {
+    console.log(this.orderableList);
+  }
 }

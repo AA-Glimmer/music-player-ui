@@ -1,8 +1,46 @@
 .app-content{
   margin-top: 100px;
   margin-bottom: 100px;
-  margin-left: 30%;
+  margin-left: 35%;
   margin-right: 30%;
   padding: 50px;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+}
 
+.content-title {
+  font-size: 18px;
+  padding:16px 0px;
+}
+.ngx-dnd-container {
+  font-size: 16px;
+  width: 56%;
+  color: rgba(0,0,0,.87);
+}
+
+.ngx-dnd-item:hover {
+  background: #F5F5F5;
+  opacity: 1;
+}
+
+.ngx-dnd-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 16px 16px;
+  position: relative;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  background-color: white;
+  border: 0px;
+}
+
+#confirm-odering {
+  position: relative;
+  padding-left:16px;
+  padding-top:4px;
+  padding-bottom: 4px;
+  margin-left: 10px;
+  width: 50%;
+  text-align: left;
 }

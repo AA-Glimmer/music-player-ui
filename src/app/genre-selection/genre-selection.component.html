@@ -1,24 +1,25 @@
 <div class="app-content">
-
-
+  <div class="content-title">
+    Drag Drop to reorder your song preferences!
+  </div>
   <!--<mat-nav-list>-->
-    <!--<mat-list-item draggable="true" >-->
-      <!--List item 1-->
-    <!--</mat-list-item>-->
-    <!--<mat-list-item draggable="true" >-->
-      <!--List item 2-->
-    <!--</mat-list-item>-->
+  <!--<mat-list-item draggable="true" >-->
+  <!--List item 1-->
+  <!--</mat-list-item>-->
+  <!--<mat-list-item draggable="true" >-->
+  <!--List item 1-->
+  <!--</mat-list-item>-->
   <!--</mat-nav-list>-->
 
   <div class="ngx-dnd-container"
        ngxDroppable [model]="orderableList">
-    <div class="ngx-dnd-item"
-         ngxDraggable>
-      BLAH1
-    </div>
-    <div class="ngx-dnd-item"
-         ngxDraggable>
-      BLAH2
+    <div mat-list-item class="ngx-dnd-item"
+         ngxDraggable
+         *ngFor="let item of orderableList"
+         [model]="item">
+      {{item}}
     </div>
   </div>
+
+  <button mat-raised-button	 color="primary" (click)="confirmGenreOrdering()" id="confirm-odering">Next</button>
 </div>
