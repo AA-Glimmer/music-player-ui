@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { PlayerComponent } from './player/player.component';
 import { LoginComponent } from './login/login.component';
 import {SessionService} from './services/session.service';
+import {GlobalService} from './services/global.service';
 import { GenreSelectionComponent } from './genre-selection/genre-selection.component';
 
 const appRoutes: Routes = [
@@ -44,7 +45,7 @@ const appRoutes: Routes = [
       HttpClientModule, FormsModule, RouterModule,
       NgxDnDModule,
    ],
-  providers: [SessionService],
+  providers: [SessionService, GlobalService],
   bootstrap : [AppComponent]
 })
 

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Howl } from 'howler';
 import {Router} from '@angular/router';
 import {SessionService} from '../services/session.service';
+import {GlobalService} from '../services/global.service';
 
 @Component({
   selector: 'app-player',
@@ -11,9 +12,10 @@ import {SessionService} from '../services/session.service';
 })
 export class PlayerComponent implements OnInit {
 
-  baseUrl = 'http://demo2919474.mockable.io/';
-
-  constructor(private http: HttpClient, private router: Router, private sessionService: SessionService) {
+  baseUrl = this.global.baseUrl;
+  
+  constructor(private http: HttpClient, private router: Router,
+              private sessionService: SessionService, private global: GlobalService) {
   }
 
   sound = null;

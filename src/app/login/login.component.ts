@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {SessionService} from '../services/session.service';
+import {GlobalService} from '../services/global.service';
 
 @Component({
   selector: 'app-login',
@@ -10,12 +11,13 @@ import {SessionService} from '../services/session.service';
 })
 export class LoginComponent implements OnInit {
 
-  baseUrl = 'http://demo2919474.mockable.io';
+  baseUrl = this.global.baseUrl;
 
   username: string;
   password: string;
 
-  constructor(private http: HttpClient, private router: Router, private sessionService: SessionService) {
+  constructor(private http: HttpClient, private router: Router,
+              private sessionService: SessionService, private global: GlobalService) {
   }
 
   ngOnInit() {
@@ -59,7 +61,7 @@ export class LoginComponent implements OnInit {
     console.log('signup called');
 
     let promise = new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + '/login', {
+      this.http.post(this.baseUrl + '/signup', {
         username: this.username,
         password: this.password
       })
@@ -67,20 +69,20 @@ export class LoginComponent implements OnInit {
         .then(
           data => {
             // console.log('Response ' + data);
-            console.log('Login Success');
+            console.log('Signup Success');
 
             let user = {user: {username: this.username, password: this.password}};
             this.sessionService.setSession(user);
 
             console.log(this.sessionService.getSession());
 
-            this.router.navigate(['./homepage']);
+            this.router.navigate(['./genreselection']);
             resolve();
           },
           err => {
             // Error
             console.log('Error status: ' + err.status);
-            alert('Invalid Credentials');
+            alert(err.msg);
           }
         );
     });

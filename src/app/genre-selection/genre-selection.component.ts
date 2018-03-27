@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {SessionService} from '../services/session.service';
+import {GlobalService} from '../services/global.service';
 
 @Component({
   selector: 'app-genre-selection',
@@ -10,7 +11,10 @@ import {SessionService} from '../services/session.service';
 })
 export class GenreSelectionComponent implements OnInit {
 
-  constructor(private http: HttpClient, private router: Router, private sessionService: SessionService) {
+  baseUrl = this.global.baseUrl;
+
+  constructor(private http: HttpClient, private router: Router,
+              private sessionService: SessionService,  private global: GlobalService) {
   }
 
   orderableList = ['Jazz', 'Hip Hop', 'Rock'];
