@@ -1,14 +1,29 @@
+.player-component {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-left: 30%;
+  margin-right: 30%;
+  /*padding: 50px;*/
+  display: block;
+}
+
+.player-controls {
+  width: 100%;
+  padding-left: 28%;
+  margin: 0 auto;
+}
+
 .btn-group .btn {
-  height: $btn-size;
-  width: $btn-size;
+  height: $ btn-size;
+  width: $ btn-size;
   background-color: transparent;
-  color: $btn-color;
+  color: $ btn-color;
 }
 
 .btn-group {
-  position: fixed;
-  top: 40%;
-  left: 40%;
+  /*position: fixed;*/
+  /*top: 40%;*/
+  /*left: 40%;*/
 }
 
 .md-select-value.md-select-placeholder {
@@ -22,4 +37,10 @@
 
 .moodicons {
   float: right;
+}
+
+.userModel {
+  padding-top: 100px;
+  width: 100%;
+  height: 100%;
 }

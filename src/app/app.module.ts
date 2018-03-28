@@ -44,7 +44,7 @@ const appRoutes: Routes = [
       MatInputModule, MatTabsModule, MatListModule,
       HttpClientModule, FormsModule, RouterModule,
       NgxDnDModule,
-   ],
+  ],
   providers: [SessionService, GlobalService],
   bootstrap : [AppComponent]
 })

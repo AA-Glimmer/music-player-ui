@@ -1,9 +1,10 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Howl } from 'howler';
-import {Router} from '@angular/router';
-import {SessionService} from '../services/session.service';
-import {GlobalService} from '../services/global.service';
+import { Router } from '@angular/router';
+import { SessionService } from '../services/session.service';
+import { GlobalService } from '../services/global.service';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-player',
@@ -13,29 +14,34 @@ import {GlobalService} from '../services/global.service';
 export class PlayerComponent implements OnInit {
 
   baseUrl = this.global.baseUrl;
-  
+
   constructor(private http: HttpClient, private router: Router,
               private sessionService: SessionService, private global: GlobalService) {
   }
 
+  chart: any;
+  ctx: any;
   sound = null;
   soundId = null;
   songId = null;
   songURL = null;
   isLike = false;
+  isPlaying = false;
   username = null;
 
   ngOnInit() {
 
-    const sesssion = this.sessionService.getSession();
-    // Check if user is in session
-    if (sesssion === undefined || !('user' in sesssion)) {
-      // if not then redirect to login page
-      this.router.navigate(['./login']);
-    } else {
-      this.username = sesssion['user']['username'];
-    }
+    // const sesssion = this.sessionService.getSession();
+    // // Check if user is in session
+    // if (sesssion === undefined || !('user' in sesssion)) {
+    //   // if not then redirect to login page
+    //   this.router.navigate(['./login']);
+    // } else {
+    //   this.username = sesssion['user']['username'];
+    // }
 
+
+    this.renderUserModel()
 
 
     // on page refresh request for a song from the server.
@@ -59,9 +65,6 @@ export class PlayerComponent implements OnInit {
      });
   }
 
-
-  isPlaying = false;
-  //sound = new Howl({src: ['../../assets/songs/temp.mp3']})
 
    togglePlay(event) {
     if ( !this.isPlaying) {
@@ -157,6 +160,39 @@ export class PlayerComponent implements OnInit {
     this.sound.on('end', function() {
       console.log('Finished playing song! Playing next song.');
       this.playNextSong();
+    });
+  }
+
+
+  renderUserModel() {
+    this.ctx = document.getElementById('userModelChart');
+
+    this.chart = new Chart(this.ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Happy', 'Angry', 'Sad', 'Anxious', 'Loving', 'Fearful'],
+        datasets: [{
+          label: 'User Model',
+          backgroundColor: 'rgba(0, 153, 247,.5)',
+          borderColor: 'rgba(0, 153, 247,1)',
+          pointBackgroundColor: 'rgba(0, 153, 247,1)',
+          pointBorderColor: 'rgba(0, 153, 247,1)',
+          pointHoverBackgroundColor: 'rgba(0, 153, 247,1)',
+          pointHoverBorderColor: 'rgba(0, 153, 247,1)',
+          data: [0.5, 0.6, 0.3, 0.4, 0.6, 0.7],
+        }]
+      },
+      options: {
+        scale: {
+          // Hides the scale
+          display: true,
+          ticks: {
+            beginAtZero: true,
+            min: 0,
+            max: 1,
+          }
+        }
+      }
     });
   }
 }
