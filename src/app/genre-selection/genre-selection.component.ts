@@ -44,7 +44,7 @@ export class GenreSelectionComponent implements OnInit {
         .then(
           data => {
             // console.log('Response ' + data);
-            console.log('Login Success');
+            console.log('Navigating to to homepage...');
             this.router.navigate(['./homepage']);
             resolve();
           },

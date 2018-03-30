@@ -1,0 +1,16 @@
+Introduction
+Related Background
+Methodology
+  Assumptions
+  Data
+    Preprocessing
+    Cold start problem
+  Architecture
+    User Model - Knowledge Representation
+      Mood
+      Song Category Preference
+    SME
+    Mood engine
+Results
+Conclusion
+References

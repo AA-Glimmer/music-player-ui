@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 
-export interface ISession {
-  session: Object;
-}
-
 @Injectable()
-export class SessionService implements ISession {
-  private _session: session;
+export class SessionService {
+  private _session: any;
 
   constructor() { }
 
@@ -14,7 +10,7 @@ export class SessionService implements ISession {
     this._session = value;
   }
 
-  getSession(): session {
+  getSession() {
     return this._session;
   }
 }
