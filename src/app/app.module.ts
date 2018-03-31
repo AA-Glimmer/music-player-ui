@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatMenuModule, MatToolbarModule, MatIconModule, MatListModule,
-  MatCardModule, MatCheckboxModule, MatSelectModule, MatInputModule, MatTabsModule, } from '@angular/material';
+  MatCardModule, MatCheckboxModule, MatSelectModule, MatInputModule, MatTabsModule, MatTooltipModule } from '@angular/material';
 
 import { NgxDnDModule } from '@swimlane/ngx-dnd';
 
@@ -43,7 +43,7 @@ const appRoutes: Routes = [
       MatCardModule, MatCheckboxModule, MatSelectModule,
       MatInputModule, MatTabsModule, MatListModule,
       HttpClientModule, FormsModule, RouterModule,
-      NgxDnDModule,
+      NgxDnDModule, MatTooltipModule,
   ],
   providers: [SessionService, GlobalService],
   bootstrap : [AppComponent]

@@ -9,7 +9,7 @@
 
 .player-controls {
   width: 100%;
-  padding-left: 28%;
+  padding-left: 24%;
   margin: 0 auto;
 }
 
@@ -34,6 +34,7 @@
   font-size: 30px !important;
   color: #F9EE05;
 }
+
 
 .moodicons {
   float: right;
