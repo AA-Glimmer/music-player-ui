@@ -1,58 +1,63 @@
 <!--<div class="moodicons">-->
-  <!--<button mat-button [matMenuTriggerFor]="moodMenu">-->
-    <!--<mat-icon md-menu-origin>mood</mat-icon>-->
-  <!--</button>-->
-  <!--<mat-menu #moodMenu="matMenu">-->
-    <!--<button mat-button class="mat-icon-button">-->
-      <!--<mat-icon md-menu-origin>mood</mat-icon>-->
-    <!--</button>-->
-    <!--<button mat-button class="mat-icon-button">-->
-      <!--<mat-icon md-menu-origin>sentiment_dissatisfied</mat-icon>-->
-    <!--</button>-->
-  <!--</mat-menu>-->
+<!--<button mat-button [matMenuTriggerFor]="moodMenu">-->
+<!--<mat-icon md-menu-origin>mood</mat-icon>-->
+<!--</button>-->
+<!--<mat-menu #moodMenu="matMenu">-->
+<!--<button mat-button class="mat-icon-button">-->
+<!--<mat-icon md-menu-origin>mood</mat-icon>-->
+<!--</button>-->
+<!--<button mat-button class="mat-icon-button">-->
+<!--<mat-icon md-menu-origin>sentiment_dissatisfied</mat-icon>-->
+<!--</button>-->
+<!--</mat-menu>-->
 
 <!--</div>-->
 
 <div class="player-component">
   <div class="player-controls">
     <!--<div class="wrapper text-center">-->
-      <!--<div class="btn-group">-->
-        <button mat-raised-button class="btn"
-                (click)="togglePlay($event)" matTooltip="Play/Stop"
-        >
+    <!--<div class="btn-group">-->
+    <button mat-raised-button class="btn"
+            (click)="togglePlay($event)" matTooltip="Play/Stop"
+    >
           <span *ngIf="isPlaying; then condition1 else condition2">
           </span>
-          <ng-template #condition1>
-            <i class="fa fa-pause" aria-hidden="true">
-            </i>
-          </ng-template>
-          <ng-template #condition2>
-            <i class="fa fa-play" aria-hidden="true">
-            </i>
-          </ng-template>
+      <ng-template #condition1>
+        <i class="fa fa-pause" aria-hidden="true">
+        </i>
+      </ng-template>
+      <ng-template #condition2>
+        <i class="fa fa-play" aria-hidden="true">
+        </i>
+      </ng-template>
 
-        </button>
+    </button>
+    <button mat-raised-button class="btn"
+            (click)="playNextSongNormally()" matTooltip="Assumes that you have listened to the entire song."
+    >
+      <i class="fa fa-step-forward" aria-hidden="true">
+      </i>
+    </button>
+    <button mat-fab class="btn"
+            (click)="like()" matTooltip="I like this song!"
+    >
+      <i class="fa fa-thumbs-up" aria-hidden="true">
+      </i>
+    </button>
+    <button mat-fab class="btn" style="background-color:indianred"
+            (click)="hate()" matTooltip="Do not play this song again!"
+    >
+      <i class="fa fa-thumbs-down" aria-hidden="true">
+      </i>
+    </button>
 
-        <button mat-fab class="btn"
-                (click)="like()" matTooltip="I like this song!"
-        >
-          <i class="fa fa-thumbs-up" aria-hidden="true">
-          </i>
-        </button>
-        <button mat-fab class="btn" style="background-color:indianred"
-                (click)="hate()" matTooltip="Do not play this song again!"
-        >
-          <i class="fa fa-thumbs-down" aria-hidden="true">
-          </i>
-        </button>
-
-        <button mat-raised-button class="btn"
-                (click)="skipSong($event)" matTooltip="Skip song"
-        >
-          <i class="fa fa-arrow-circle-right" aria-hidden="true">
-          </i>
-        </button>
-      <!--</div>-->
+    <button mat-raised-button class="btn"
+            (click)="skipSong($event)" matTooltip="Skip song"
+    >
+      <i class="fa fa-arrow-circle-right" aria-hidden="true">
+      </i>
+    </button>
+    <!--</div>-->
     <!--</div>-->
   </div>
 

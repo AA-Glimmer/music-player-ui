@@ -17,7 +17,7 @@ export class GenreSelectionComponent implements OnInit {
               private sessionService: SessionService,  private global: GlobalService) {
   }
 
-  orderableList = ['Jazz', 'Hip Hop', 'Rock'];
+  orderableList = ['Rap', 'Hip Hop', 'Rock'];
   selectedGenres = '';
   username = null;
   password = null;
