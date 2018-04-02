@@ -78,6 +78,7 @@ export class PlayerComponent implements OnInit {
   togglePlay(event) {
     if (!this.isPlaying) {
       // If earlier song wasn't isPlaying
+
       this.playSong();
 
     } else {
@@ -90,6 +91,7 @@ export class PlayerComponent implements OnInit {
   like() {
     this.isLike = true;
   }
+
   skipSong(event) {
     console.log('Skipping Song:' + this.songURL);
     let req = JSON.stringify({
@@ -167,7 +169,12 @@ export class PlayerComponent implements OnInit {
             this.isLike = false;
 
             console.log('Next Song:' + this.songURL);
-            this.sound = new Howl({src: this.songURL});
+            this.sound = new Howl({
+              src: this.songURL,
+              onend: function() {
+                this.src.playNextSong();
+              }
+            });
 
             // play the next song
             this.playSong();
@@ -224,6 +231,7 @@ export class PlayerComponent implements OnInit {
     this.isPlaying = true;
     this.soundId = this.sound.play();
     console.log('In Play Function');
+
   }
 
 
