@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class GlobalService {
 
-  baseUrl = 'http://demo2919474.mockable.io/';
+  baseUrl = 'http://127.0.0.1:8000';
   constructor() { }
 
 }

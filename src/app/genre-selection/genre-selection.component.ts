@@ -18,7 +18,9 @@ export class GenreSelectionComponent implements OnInit {
   }
 
   orderableList = ['Jazz', 'Hip Hop', 'Rock'];
+  selectedGenres = '';
   username = null;
+  password = null;
 
   ngOnInit() {
     const sesssion = this.sessionService.getSession();
@@ -28,18 +30,25 @@ export class GenreSelectionComponent implements OnInit {
       this.router.navigate(['./login']);
     } else {
       this.username = sesssion['user']['username'];
+      this.password = sesssion['user']['password'];
     }
   }
 
 
   confirmGenreOrdering() {
-    console.log(this.orderableList);
+    for (let elem of this.orderableList) {
+      this.selectedGenres = this.selectedGenres + elem + ',';
+    }
+
+    this.selectedGenres = this.selectedGenres.substring(0. this.selectedGenres.length - 1);
+    console.log(this.selectedGenres);
 
     let promise = new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + '/genreselection', {
+      this.http.post(this.baseUrl + '/user/genreselection', JSON.stringify({
         username: this.username,
-        genreSelection: this.orderableList,
-      })
+        password: this.password,
+        genreSelection: this.selectedGenres,
+      }))
         .toPromise()
         .then(
           data => {

@@ -28,11 +28,14 @@ export class LoginComponent implements OnInit {
     console.log(this.username);
     console.log(this.password);
 
+
+    let request = JSON.stringify({
+        "username": this.username,
+        "password": this.password
+      });
+
     let promise = new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + '/login', {
-        username: this.username,
-        password: this.password
-      })
+      this.http.post(this.baseUrl + '/login', request)
         .toPromise()
         .then(
           data => {
@@ -61,10 +64,10 @@ export class LoginComponent implements OnInit {
     console.log('signup called');
 
     let promise = new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + '/signup', {
+      this.http.post(this.baseUrl + '/signup', JSON.stringify({
         username: this.username,
         password: this.password
-      })
+      }))
         .toPromise()
         .then(
           data => {

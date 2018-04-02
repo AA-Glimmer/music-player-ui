@@ -28,8 +28,7 @@ export class PlayerComponent implements OnInit {
   isLike = false;
   isPlaying = false;
   username = null;
-  password;
-  null;
+  password = null;
 
   ngOnInit() {
 
@@ -44,26 +43,28 @@ export class PlayerComponent implements OnInit {
     }
 
 
-    this.renderUserModel();
-
-
     // on page refresh request for a song from the server.
     // Serve will provide the song name and then play the song directly
     // from that location
     let promise = new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + '/song/initial', {
+      this.http.post(this.baseUrl + '/song/initial', JSON.stringify({
         username: this.username,
-        password: this.password,
-      })
+        password: this.password
+      }))
         .toPromise()
         .then(
           data => {
             // Stop the previous song
-
+            console.log(data);
             // set the next song
             this.songId = data['songId'];
-            this.songURL = data['url'];
-            this.sound = new Howl({src: this.songURL});
+            this.songURL = data['songURL'];
+            let arr = [];
+            arr[0] = this.songURL;
+            //this.songURL = '/Users/WolfDen/Desktop/songs/Bruno Mars - Thats What I Like.mp3';
+            this.sound = new Howl({src: arr});
+
+            this.getUserModel();
             resolve();
           },
           err => {
@@ -92,16 +93,18 @@ export class PlayerComponent implements OnInit {
 
   skipSong(event) {
     console.log('Skipping Song:' + this.songURL);
+    let req = JSON.stringify({
+      username: this.username,
+      password: this.password,
+      songId: this.songId,
+      isLike: this.isLike,
+      timePlayed: this.sound.seek(this.soundId),
+      timestamp: new Date().getTime() / 1000,
+    });
+    console.log(req);
 
     let promise = new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + '/skip', {
-        username: this.username,
-        password: this.password,
-        songId: this.songId,
-        isLike: this.isLike,
-        timePlayed: this.sound.seek(this.soundId),
-        timestamp: new Date().getTime() / 1000,
-      })
+      this.http.post(this.baseUrl + '/song/skip', req)
         .toPromise()
         .then(
           data => {
@@ -110,13 +113,17 @@ export class PlayerComponent implements OnInit {
 
             // set the next song
             this.songId = data['songId'];
-            this.songURL = data['url'];
-            //this.mood = data['mood'];
+            this.songURL = data['songURL'];
+            let arr = [];
+            arr[0] = this.songURL;
+
             console.log('Next Song:' + this.songURL);
-            this.sound = new Howl({src: this.songURL});
+            this.sound = new Howl({src: arr});
 
             // play the next song
             this.playSong();
+
+            this.getUserModel();
             resolve();
           },
           err => {
@@ -145,8 +152,8 @@ export class PlayerComponent implements OnInit {
 
             // set the next song
             this.songId = data['songId'];
-            this.songURL = data['url'];
-            //this.mood = mood;
+            this.songURL = data['songURL'];
+
             console.log('Next Song:' + this.songURL);
             this.sound = new Howl({src: this.songURL});
 
@@ -164,14 +171,17 @@ export class PlayerComponent implements OnInit {
 
 
   hate() {
+
+    console.log('SONG ID: ' + this.songId);
+
     let promise = new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + '/song/hate', {
+      this.http.post(this.baseUrl + '/song/hate', JSON.stringify({
         username: this.username,
         password: this.password,
         songId: this.songId,
         timePlayed: this.sound.seek(this.soundId),
         timestamp: new Date().getTime() / 1000,
-      })
+      }))
         .toPromise()
         .then(
           data => {
@@ -180,7 +190,7 @@ export class PlayerComponent implements OnInit {
 
             // set the next song
             this.songId = data['songId'];
-            this.songURL = data['url'];
+            this.songURL = data['songURL'];
             console.log('Next Song:' + this.songURL);
             this.sound = new Howl({src: this.songURL});
 
@@ -205,12 +215,40 @@ export class PlayerComponent implements OnInit {
     // Fires when the sound finishes playing.
     this.sound.on('end', function () {
       console.log('Finished playing song! Playing next song.');
-      this.playNextSong();
+
+      // TODO: Play song
     });
   }
 
 
-  renderUserModel() {
+  getUserModel() {
+    let promise = new Promise((resolve, reject) => {
+      this.http.post(this.baseUrl + '/user/usermodel', JSON.stringify({
+          username: this.username,
+          password: this.password,
+        })
+      )
+        .toPromise()
+        .then(
+          data => {
+            const happy = data['Happy'];
+            const angry = data['Angry'];
+            const sad = data['Sad'];
+            const anx = data['Anxious'];
+            const loving = data['Loving'];
+            const fearful = data['Fearful'];
+            this.renderUserModel([happy, angry, sad, anx, loving, fearful]);
+            resolve();
+          },
+          err => {
+            // Error
+            alert(err.status);
+          }
+        );
+    });
+  }
+
+  renderUserModel(userData) {
     this.ctx = document.getElementById('userModelChart');
 
     this.chart = new Chart(this.ctx, {
@@ -225,7 +263,8 @@ export class PlayerComponent implements OnInit {
           pointBorderColor: 'rgba(0, 153, 247,1)',
           pointHoverBackgroundColor: 'rgba(0, 153, 247,1)',
           pointHoverBorderColor: 'rgba(0, 153, 247,1)',
-          data: [0.5, 0.6, 0.3, 0.4, 0.6, 0.7],
+          // data: [0.5, 0.6, 0.3, 0.4, 0.6, 0.7],
+          data: userData,
         }]
       },
       options: {
