@@ -59,10 +59,17 @@ export class PlayerComponent implements OnInit {
             // set the next song
             this.songId = data['songId'];
             this.songURL = data['songURL'];
+
             let arr = [];
             arr[0] = this.songURL;
-            //this.songURL = '/Users/WolfDen/Desktop/songs/Bruno Mars - Thats What I Like.mp3';
-            this.sound = new Howl({src: arr});
+
+            this.sound = new Howl({
+              src: arr,
+              autoplay: true,
+              onend: function() {
+                this.src.playNextSong();
+              }
+            });
 
             this.getUserModel();
             resolve();
@@ -80,7 +87,7 @@ export class PlayerComponent implements OnInit {
       // If earlier song wasn't isPlaying
       //this.isPlaying = true;
       //this.soundId = this.sound.play()
-      this.playSong(this.playNextSong);
+      this.playSong();
 
     } else {
       this.isPlaying = false;
@@ -92,6 +99,7 @@ export class PlayerComponent implements OnInit {
   like() {
     this.isLike = true;
   }
+
   skipSong(event) {
     console.log('Skipping Song:' + this.songURL);
     let req = JSON.stringify({
@@ -123,7 +131,7 @@ export class PlayerComponent implements OnInit {
             this.sound = new Howl({src: arr});
 
             // play the next song
-            this.playSong(this.playNextSong);
+            this.playSong();
 
             this.getUserModel();
             resolve();
@@ -138,14 +146,14 @@ export class PlayerComponent implements OnInit {
 
   playNextSong() {
     let promise = new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + '/song', {
+      this.http.post(this.baseUrl + '/song', JSON.stringify({
         username: this.username,
         password: this.password,
         songId: this.songId,
         isLike: this.isLike,
         timePlayed: this.sound.seek(this.soundId),
         timestamp: new Date().getTime() / 1000,
-      })
+      }))
         .toPromise()
         .then(
           data => {
@@ -158,47 +166,15 @@ export class PlayerComponent implements OnInit {
             this.isLike = false;
 
             console.log('Next Song:' + this.songURL);
-            this.sound = new Howl({src: this.songURL});
+            this.sound = new Howl({
+              src: this.songURL,
+              onend: function() {
+                this.src.playNextSong();
+              }
+            });
 
             // play the next song
-            this.playSong(this.playNextSong);
-            resolve();
-          },
-          err => {
-            // Error
-            alert(err.status);
-          }
-        );
-    });
-  }
-
-
-  autoPlay(http, path, username, password, songId, isLike) {
-    let promise = new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + '/song', {
-        username: this.username,
-        password: this.password,
-        songId: this.songId,
-        isLike: this.isLike,
-        timePlayed: this.sound.seek(this.soundId),
-        timestamp: new Date().getTime() / 1000,
-      })
-        .toPromise()
-        .then(
-          data => {
-            // Stop the previous song
-            this.sound.stop();
-
-            // set the next song
-            this.songId = data['songId'];
-            this.songURL = data['songURL'];
-            this.isLike = false;
-
-            console.log('Next Song:' + this.songURL);
-            this.sound = new Howl({src: this.songURL});
-
-            // play the next song
-            this.playSong(this.playNextSong);
+            this.playSong();
             resolve();
           },
           err => {
@@ -248,17 +224,17 @@ export class PlayerComponent implements OnInit {
   }
 
   // Helper method that plays the song
-  playSong(playNS) {
+  playSong() {
     this.isPlaying = true;
-    this.soundId = this.sound.play();
+    this.soundId = sound.play();
     console.log('In Play Function');
 
     // Fires when the sound finishes playing.
-    this.sound.on('end', function () {
-      console.log('Finished playing song! Playing next song.');
-      playNS();
-      // TODO: Play song
-    });
+    // this.sound.on('end', function (this) {
+    //   console.log('Finished playing song! Playing next song.');
+    //   // TODO: Auto Play song
+    //
+    // });
   }
 
 
