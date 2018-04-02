@@ -40,7 +40,7 @@ export class GenreSelectionComponent implements OnInit {
       this.selectedGenres = this.selectedGenres + elem + ',';
     }
 
-    this.selectedGenres = this.selectedGenres.substring(0. this.selectedGenres.length - 1);
+    this.selectedGenres = this.selectedGenres.substring(0, this.selectedGenres.length - 1);
     console.log(this.selectedGenres);
 
     let promise = new Promise((resolve, reject) => {

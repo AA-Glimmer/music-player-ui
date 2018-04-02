@@ -75,7 +75,6 @@ export class PlayerComponent implements OnInit {
     });
   }
 
-
   togglePlay(event) {
     if (!this.isPlaying) {
       // If earlier song wasn't isPlaying
@@ -90,7 +89,9 @@ export class PlayerComponent implements OnInit {
     }
   }
 
-
+  like() {
+    this.isLike = true;
+  }
   skipSong(event) {
     console.log('Skipping Song:' + this.songURL);
     let req = JSON.stringify({
@@ -114,6 +115,7 @@ export class PlayerComponent implements OnInit {
             // set the next song
             this.songId = data['songId'];
             this.songURL = data['songURL'];
+            this.isLike = false;
             let arr = [];
             arr[0] = this.songURL;
 
@@ -153,6 +155,7 @@ export class PlayerComponent implements OnInit {
             // set the next song
             this.songId = data['songId'];
             this.songURL = data['songURL'];
+            this.isLike = false;
 
             console.log('Next Song:' + this.songURL);
             this.sound = new Howl({src: this.songURL});
@@ -191,6 +194,8 @@ export class PlayerComponent implements OnInit {
             // set the next song
             this.songId = data['songId'];
             this.songURL = data['songURL'];
+            this.isLike = false;
+
             console.log('Next Song:' + this.songURL);
             this.sound = new Howl({src: this.songURL});
 
